@@ -115,15 +115,13 @@ if __name__ == "__main__":
     fdrs['NewID'] = fdrs.apply(lambda x: doc_id_exists(x.DocID, doc_ids), axis=1)
     new_fdrs = fdrs[fdrs['NewID'] == False].drop(['NewID'], axis = 1)
 
-    if new_fdrs.empty():
+    if new_fdrs.empty:
         message = "No new trades from representatives"
-        logger.info(message)
         post_message_discord(config['discord'], message)
     else:
         message = "New trades from representatives!\n{home_url}".format(
             home_url=FINANCIAL_DISCLOSURE_HOME
         )
-        logger.info(message)
         post_message_discord(config['discord'], message)
 
         for idx, row in new_fdrs.iterrows():
@@ -139,8 +137,6 @@ if __name__ == "__main__":
                 docid=row['DocID'],
                 url=url
                 )
-            logger.info(message)
-
             post_message_discord(config['discord'], message)
             time.sleep(3)
 
@@ -151,7 +147,8 @@ if __name__ == "__main__":
     # Delete content from dirs
     path = Path("{}/data/".format(paths[args.env]))
     for dir in path.iterdir():
-        if dir.__str__().split('/')[-1] != "sql":
+        if dir.__str__().split('/')[-1] not in  ["sql", ".DS_Store"]:
+            logger.info("Dir: {}".format(dir))
             sub_path = Path(dir.__str__())
             for file in sub_path.iterdir():
                 logger.info("Removing {}".format(file))
