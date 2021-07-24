@@ -111,7 +111,11 @@ if __name__ == "__main__":
         sql_executor.execute_query("select DocID from fdr")
     )
 
-    if not doc_ids:
+    # Only keep new DocIDs
+    fdrs['NewID'] = fdrs.apply(lambda x: doc_id_exists(x.DocID, doc_ids), axis=1)
+    new_fdrs = fdrs[fdrs['NewID'] == False].drop(['NewID'], axis = 1)
+
+    if new_fdrs.empty():
         message = "No new trades from representatives"
         logger.info(message)
         post_message_discord(config['discord'], message)
@@ -121,10 +125,6 @@ if __name__ == "__main__":
         )
         logger.info(message)
         post_message_discord(config['discord'], message)
-
-        # Only keep new DocIDs
-        fdrs['NewID'] = fdrs.apply(lambda x: doc_id_exists(x.DocID, doc_ids), axis=1)
-        new_fdrs = fdrs[fdrs['NewID'] == False].drop(['NewID'], axis = 1)
 
         for idx, row in new_fdrs.iterrows():
             name = "{first} {last}".format(
