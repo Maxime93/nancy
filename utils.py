@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 
 paths = {
     "local": "/Users/maximerichard/dev/nancy",
-    "raspberry": "/home/pi/wsbscraper"
+    "raspberry": "/home/pi/nancy"
 }
 
 logging_map = {
