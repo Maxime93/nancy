@@ -25,9 +25,6 @@ FINANCIAL_DISCLOSURE_HOME = "https://disclosures-clerk.house.gov/PublicDisclosur
 FINANCIAL_DISCLOSURE_REPORT_URL = 'https://disclosures-clerk.house.gov/public_disc/financial-pdfs/{year}FD.ZIP'
 PERIODIC_TRANSACTION_REPORT_URL = 'https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/{year}/{doc_id}.pdf'
 
-WEBHOOK_URL = "https://discord.com/api/webhooks/867903600591896603/4YSO2qg-tjAE4SucfpwEV0Xnb9auCIYmmj17ZdSpPgLGZlRiE54dbskGoKNzZ1HbI4eP"
-
-
 def post_message_discord(config, message):
     logger.info(message)
     webhook = DiscordWebhook(
