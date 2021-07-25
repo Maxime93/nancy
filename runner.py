@@ -73,7 +73,10 @@ if __name__ == "__main__":
     day = datetime.datetime.now()
     year = day.strftime("%Y")
 
-    with open('configs/config.yml') as f:
+    config_path = '{}/configs/config.yml'.format(
+        paths[args.env]
+    )
+    with open(config_path) as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
 
     # DOWNLOAD YEALRY ZIP FILE
