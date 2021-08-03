@@ -106,9 +106,7 @@ if __name__ == "__main__":
     # SQLiteExecutor object
     sql_executor = SQLiteExecutor(
         env=args.env, logger=logger,
-        path_to_db='{}data/sql/fdr.db'.format(
-            paths[args.env]
-        )
+        path_to_db='data/sql/fdr.db'
     )
     # Get DocID from DB
     doc_ids = flatten_list(
