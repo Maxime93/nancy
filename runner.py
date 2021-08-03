@@ -92,19 +92,23 @@ if __name__ == "__main__":
         f.write(r.content)
 
     # Extract zip file
+    fdrs_dir = "{}/data/fdrs".format(paths[args.env])
     with zipfile.ZipFile(zipfilename) as z:
-        z.extractall('./data/fdrs')
+        z.extractall(fdrs_dir)
 
     # Open content of fdr file
-    filename = 'data/fdrs/{}FD.txt'.format(
-        year
+
+    filename = '{}/data/fdrs/{}FD.txt'.format(
+        paths[args.env], year
     )
     fdrs = pd.read_csv(filename, sep='\t')
 
     # SQLiteExecutor object
     sql_executor = SQLiteExecutor(
         env=args.env, logger=logger,
-        path_to_db='data/sql/fdr.db'
+        path_to_db='{}/data/sql/fdr.db'.format(
+            paths[args.env]
+        )
     )
     # Get DocID from DB
     doc_ids = flatten_list(
