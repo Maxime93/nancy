@@ -85,8 +85,8 @@ if __name__ == "__main__":
     ))
 
     # Save zip file
-    zipfilename = 'data/fdrs_zip/{}.zip'.format(
-        year
+    zipfilename = '{}/data/fdrs_zip/{}.zip'.format(
+        paths[args.env], year
     )
     with open(zipfilename, 'wb') as f:
         f.write(r.content)
